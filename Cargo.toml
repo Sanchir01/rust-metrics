@@ -1,0 +1,25 @@
+[workspace]
+resolver = "2"
+members = [  "apps/metrics-server","packages/deps/proto"]
+
+
+[workspace.dependencies]
+tonic = { version = "0.13.1", features = ["transport"] }
+prost = "0.13.5"
+tokio = { version = "1.45.1", features = ["full"] }
+prost-types = "0.13.5"
+tonic-build = "0.13.1"
+clickhouse = { version = "0.13.3", features = ["lz4"] }
+serde = { version = "1.0.219", features = ["derive"] }
+regex = "1.11.1"
+chrono = { version = "0.4", features = ["serde"] }
+toml = "0.8.23"
+mimalloc = { version = "0.1.46" }
+jemallocator = { version = "0.5.4" }
+fake = { version = "4.2.0", features = ["derive", "chrono"] }
+dotenvy = "0.15.7"
+tonic-reflection = "0.13.1"
+tower-http = {version = "0.6.6",features = ["cors"]}
+
+[workspace.dev-dependencies]
+clickhouse = { version = "0.13.3", features = ["test-util"] }

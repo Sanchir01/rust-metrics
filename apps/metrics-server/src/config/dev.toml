@@ -1,0 +1,9 @@
+[clickhouse]
+url = "http://localhost:8123"
+username= "default"
+database  = "default"
+password = "clickhouse"
+
+[grpc_server]
+port = 50051
+host = "127.0.0.1"

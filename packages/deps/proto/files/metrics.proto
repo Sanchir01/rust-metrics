@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package metrics;
+
+service Metrics {
+    rpc AddMetric(AddMetricRequest) returns (AddMetricResponse);
+}
+
+message AddMetricRequest {
+    string url = 1;
+    int32 timeout_seconds = 2;
+    bool collect_performance = 3;
+    bool collect_seo = 4;
+}
+
+message AddMetricResponse {
+    string url = 1;
+    int64 timestamp = 2;
+    HttpMetrics http_metrics = 3;
+    PerformanceMetrics performance_metrics = 4;
+    SeoMetrics seo_metrics = 5;
+    string error = 6;
+}
+
+message HttpMetrics {
+    int32 status_code = 1;
+    int64 response_time_ms = 2;
+    int64 content_length = 3;
+    string content_type = 4;
+    repeated Header headers = 5;
+}
+
+message Header {
+    string name = 1;
+    string value = 2;
+}
+
+message PerformanceMetrics {
+    int64 dns_lookup_time = 1;
+    int64 tcp_connect_time = 2;
+    int64 tls_handshake_time = 3;
+    int64 first_byte_time = 4;
+    int64 download_time = 5;
+    int64 total_time = 6;
+}
+
+message SeoMetrics {
+    string title = 1;
+    string description = 2;
+    repeated string keywords = 3;
+    int32 h1_count = 4;
+    int32 h2_count = 5;
+    int32 img_count = 6;
+    int32 link_count = 7;
+    bool has_robots_meta = 8;
+}

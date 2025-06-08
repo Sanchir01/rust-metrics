@@ -1,0 +1,23 @@
+[package]
+name = "metrics-server"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tonic.workspace = true
+prost.workspace = true
+tokio.workspace = true
+mimalloc.workspace = true
+dotenvy.workspace = true
+proto = { path = "../../packages/deps/proto" }
+toml.workspace = true
+serde.workspace = true
+fake.workspace =true
+prost-types.workspace =true
+chrono.workspace =true
+clickhouse.workspace = true
+anyhow = "1.0.98"
+
+
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+jemallocator.workspace = true
