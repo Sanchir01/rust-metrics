@@ -45,7 +45,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
     let metric = MetricsGrpcServer::new();
-    let addr = "[::1]:50051".parse()?;
+    let addr = "0.0.0.0:50051".parse()?;
     println!("gRPC Server running at {}", addr);
     Server::builder().add_service(MetricsServer::new(metric)).serve(addr).await?;
 

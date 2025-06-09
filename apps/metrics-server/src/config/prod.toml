@@ -1,0 +1,9 @@
+[clickhouse]
+url = "http://docker.host.internal:8123"
+username= "default"
+database  = "default"
+password = "clickhouse"
+
+[grpc_server]
+port = 50051
+host = "0.0.0.0"

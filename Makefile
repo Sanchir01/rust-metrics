@@ -3,19 +3,15 @@ PHONY:
 MIGRATION_NAME ?= new_migration
 compose:
 	docker-compose up -d
-dockerfile:
-	docker build -t trpc-rust-grpc .
 
 metrics:
 	cargo watch -x 'run -p metrics-server'
 
-generator:
-	cargo watch -x 'run -p generator'
 run-prod:
-	cargo run --release -p ingester &  cargo run --release -p generator
+	cargo run --release -p metrics
 
 workspace:
-	cargo watch -x 'run -p generator' & cargo watch -x 'run -p ingester'
+	cargo watch -x 'run -p metrics-server'
 migrations-up:
 	goose -dir migrations clickhouse "tcp://localhost:9000?username=default&password=clickhouse" up
 
@@ -30,3 +26,6 @@ migrations-new:
 
 docker:
 	docker compose up -d
+
+compose-prod:
+	docker compose -f docker-compose.prod.yaml up --build -d

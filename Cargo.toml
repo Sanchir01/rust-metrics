@@ -23,3 +23,10 @@ tower-http = {version = "0.6.6",features = ["cors"]}
 
 [workspace.dev-dependencies]
 clickhouse = { version = "0.13.3", features = ["test-util"] }
+
+[profile.release]
+opt-level = 3
+debug = 2
+lto = "fat"
+codegen-units = 1
+strip = true
