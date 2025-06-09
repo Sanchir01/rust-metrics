@@ -5,6 +5,7 @@ use dotenvy::dotenv;
 use crate::pkg::db::clickhouse::connect_click_house;
 use crate::app::config::Config;
 use crate::server::grpc::server::MetricsGrpcServer;
+use std::env;
 #[cfg(not(target_os = "windows"))]
 use jemallocator::Jemalloc as GlobalAlloc;
 
@@ -29,10 +30,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             return Err("Database config not found".into());
         }
     };
+    let clickhouse_password = env::var("CLICKHOUSE_PASSWORD")
+        .expect("CLICKHOUSE_PASSWORD must be set");
     let client =    match connect_click_house(
         &db_cfg.url,
         &db_cfg.database,
-        &db_cfg.password,
+        &clickhouse_password,
         &db_cfg.username,
     ).await {
         Ok(client) => client,
