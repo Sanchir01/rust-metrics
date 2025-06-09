@@ -1,5 +1,5 @@
 use tonic::{Request, Response, Status};
-use proto::metrics::{AddMetricRequest, AddMetricResponse,metrics_server::Metrics};
+use candles_proto::metrics::{AddMetricRequest, AddMetricResponse,metrics_server::Metrics};
 
 
 #[derive(Debug,Default)]

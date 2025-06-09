@@ -11,13 +11,10 @@ use jemallocator::Jemalloc as GlobalAlloc;
 #[cfg(target_os = "windows")]
 use mimalloc::MiMalloc as GlobalAlloc;
 use tonic::transport::Server;
-use proto::metrics::metrics_server::MetricsServer;
+use candles_proto::metrics::metrics_server::MetricsServer;
 
 #[global_allocator]
 static GLOBAL: GlobalAlloc = GlobalAlloc;
-
-
-
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
