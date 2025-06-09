@@ -1,6 +1,7 @@
 mod app;
 mod pkg;
 mod server;
+mod feature;
 use dotenvy::dotenv;
 use crate::pkg::db::clickhouse::connect_click_house;
 use crate::app::config::Config;
