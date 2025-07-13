@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = [  "apps/metrics-server"]
+members = ["apps/metrics-server", "apps/url-shortener"]
 
 
 [workspace.dependencies]
@@ -18,12 +18,23 @@ mimalloc = { version = "0.1.46" }
 jemallocator = { version = "0.5.4" }
 fake = { version = "4.2.0", features = ["derive", "chrono"] }
 dotenvy = "0.15.7"
-candles-proto={git="https://github.com/Sanchir01/auth-proto"}
+candles-proto = { git = "https://github.com/Sanchir01/auth-proto" }
 tonic-reflection = "0.13.1"
-tower-http = {version = "0.6.6",features = ["cors"]}
+tower-http = { version = "0.6.6", features = ["cors"] }
+kafka = { version = "0.10" }
+openssl-sys = { version = "0.9", features = ["vendored"] }
+axum = "0.8.4"
+humantime = "2.1.0"
+sqlx = { version = "0.8.6", features = [
+    "postgres",
+    "runtime-tokio-rustls",
+    "chrono",
+    "uuid",
+] }
 
 [workspace.dev-dependencies]
 clickhouse = { version = "0.13.3", features = ["test-util"] }
+openssl-sys = { version = "0.9", features = ["vendored"] }
 
 [profile.release]
 opt-level = 3

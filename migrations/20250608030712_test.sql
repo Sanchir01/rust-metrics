@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS metrics (
     ENGINE = MergeTree()
     PARTITION BY toYYYYMM(timestamp)
     ORDER BY (timestamp, url)
-
 -- +goose StatementEnd
 
 -- +goose Down

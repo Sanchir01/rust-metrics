@@ -1,5 +1,5 @@
 [package]
-name = "metrics-server"
+name = "url-shortener"
 version = "0.1.0"
 edition = "2024"
 
@@ -12,12 +12,11 @@ dotenvy.workspace = true
 toml.workspace = true
 serde.workspace = true
 fake.workspace = true
-prost-types.workspace = true
 chrono.workspace = true
 clickhouse.workspace = true
-anyhow = "1.0.98"
-candles-proto.workspace = true
-
-
+axum.workspace = true
+humantime.workspace = true
+tower-http.workspace = true
+sqlx.workspace = true
 [target.'cfg(not(target_os = "windows"))'.dependencies]
 jemallocator.workspace = true

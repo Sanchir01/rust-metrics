@@ -7,11 +7,15 @@ compose:
 metrics:
 	cargo watch -x 'run -p metrics-server'
 
+url	:
+	cargo watch -x 'run -p url-shortener'
+
 run-prod:
 	cargo run --release -p metrics
 
 workspace:
-	cargo watch -x 'run -p metrics-server'
+	cargo watch -x 'run -p metrics-server' && cargo watch -x 'run -p url-shortener'
+
 migrations-up:
 	goose -dir migrations clickhouse "tcp://localhost:9000?username=default&password=clickhouse" up
 
