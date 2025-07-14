@@ -18,5 +18,10 @@ axum.workspace = true
 humantime.workspace = true
 tower-http.workspace = true
 sqlx.workspace = true
+mockall.workspace = true
+async-trait.workspace = true
+uuid.workspace = true
+
+
 [target.'cfg(not(target_os = "windows"))'.dependencies]
 jemallocator.workspace = true

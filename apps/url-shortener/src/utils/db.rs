@@ -4,17 +4,19 @@ use std::time::Duration;
 use tokio::time::sleep;
 
 pub async fn init_primary_db(config: &Config) -> Result<Pool<Postgres>, sqlx::Error> {
+    println!("{:?}", config);
     let db_config = config
         .database
         .as_ref()
         .expect("Database configuration is required");
 
     let database_url = format!(
-        "postgres://{}:{}@{}:{}/{}",
+        "postgresql://{}:{}@{}:{}/{}",
         db_config.username, db_config.password, db_config.host, db_config.port, db_config.database
     );
 
-    return connect_with_retries(&database_url, db_config.retry).await;
+     let pool = connect_with_retries(&database_url, db_config.retry).await;
+    pool
 }
 
 pub async fn connect_with_retries(

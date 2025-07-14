@@ -1,6 +1,11 @@
 SILENT:
 PHONY:
 MIGRATION_NAME ?= new_migration
+
+DB_CONN_DEV = "host=localhost user=postgres password=postgres port=5443 dbname=shortener sslmode=disable"
+
+FOLDER_PG= migrations/pg
+
 compose:
 	docker-compose up -d
 
@@ -16,17 +21,21 @@ run-prod:
 workspace:
 	cargo watch -x 'run -p metrics-server' && cargo watch -x 'run -p url-shortener'
 
-migrations-up:
+migrations-click-up:
 	goose -dir migrations clickhouse "tcp://localhost:9000?username=default&password=clickhouse" up
 
+migrations-up:
+	goose -dir $(FOLDER_PG) postgres $(DB_CONN_DEV)   up
+
 migrations-down:
-	goose -dir migrations postgres  "host=localhost user=postgres password=postgres port=5435 dbname=test sslmode=disable"  down
+	goose -dir $(FOLDER_PG) postgres $(DB_CONN_DEV)   down
 
 
 migrations-status:
-	goose -dir migrations postgres  "host=localhost user=postgres password=postgres port=5435 dbname=test sslmode=disable" status
+	goose -dir $(FOLDER_PG) postgres $(DB_CONN_DEV)  status
+
 migrations-new:
-	goose -dir migrations create $(MIGRATION_NAME) sql
+	goose -dir $(FOLDER_PG) create $(MIGRATION_NAME) sql
 
 docker:
 	docker compose up -d

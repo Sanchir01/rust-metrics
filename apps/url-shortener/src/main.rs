@@ -5,6 +5,7 @@ use crate::utils::db::init_primary_db;
 use dotenvy::dotenv;
 mod app;
 mod servers;
+mod feature;
 mod utils;
 #[cfg(not(target_os = "windows"))]
 use jemallocator::Jemalloc as GlobalAlloc;

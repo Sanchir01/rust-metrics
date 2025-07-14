@@ -2,7 +2,7 @@ use clickhouse::Client;
 use serde::Deserialize;
 use std::sync::Arc;
 
-#[derive(Clone)]
+#[derive(Clone,Debug)]
 pub struct Repositories {}
 
 impl Repositories {

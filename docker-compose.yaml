@@ -12,18 +12,17 @@ services:
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - clickhouse_config:/etc/clickhouse-server
-
-  postgres:
+  db:
+    restart: always
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5443:5432"
     environment:
-      - POSTGRES_DB=shotener
-      - POSTGRES_USER=postgres
+      - POSTGRES_DB=shortener
       - POSTGRES_PASSWORD=postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - POSTGRES_USER=postgres
 
 volumes:
+  db:
   clickhouse_data:
   clickhouse_config:
