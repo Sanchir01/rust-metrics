@@ -27,15 +27,16 @@ axum = "0.8.4"
 humantime = "2.1.0"
 sqlx = { version = "0.8.6", features = [
   "postgres",
-  "runtime-tokio-rustls",
+  "runtime-tokio-rustls", 
   "chrono",
   "uuid",
 ] }
-uuid = { version = "1", features = ["v4"] }
+anyhow = "1.0.98"
+uuid = { version = "1", features = ["v4","serde"] }
 async-trait = "0.1.88"
 mockall = "0.13.1"
 sea-query = { version = "0.32.6" }
-
+serde_json="1.0.140"
 [workspace.dev-dependencies]
 clickhouse = { version = "0.13.3", features = ["test-util"] }
 openssl-sys = { version = "0.9", features = ["vendored"] }

@@ -7,7 +7,7 @@ use crate::domain::url::Url;
 
 #[cfg_attr(test, automock)]
 #[async_trait]
-pub trait UrlRepositoryTrait{
+pub trait UrlRepositoryTrait:Send + Sync{
     async fn get_all_url(&self) -> Result<Vec<Url>, sqlx::Error>;
 }
 
@@ -22,10 +22,6 @@ impl UrlRepository {
     }
 }
 
-// План:
- // 1. Исправить объявление async fn get_all_url, чтобы сигнатура совпадала с trait (ошибка с lifetime).
- // 2. Исправить вызов Query::select().build, чтобы возвращаемые значения корректно использовались.
- // 3. Убрать неиспользуемую переменную _value для соответствия линтеру.
 #[async_trait]
 impl UrlRepositoryTrait for UrlRepository {
    async fn get_all_url(&self) -> Result<Vec<Url>, sqlx::Error>{

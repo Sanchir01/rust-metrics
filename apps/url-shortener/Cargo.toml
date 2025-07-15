@@ -22,6 +22,8 @@ mockall.workspace = true
 async-trait.workspace = true
 uuid.workspace = true
 sea-query.workspace = true
+anyhow.workspace = true
+serde_json.workspace = true
 
 [target.'cfg(not(target_os = "windows"))'.dependencies]
 jemallocator.workspace = true
