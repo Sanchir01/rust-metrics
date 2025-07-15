@@ -1,14 +1,15 @@
 use async_trait::async_trait;
 use mockall::{automock, predicate::*};
-use sea_query::{PostgresQueryBuilder, Query};
+use sea_query::{Alias, PostgresQueryBuilder, Query};
 use sqlx::{Pool, Postgres, query_as, query_as_with};
 
 use crate::domain::url::Url;
 
 #[cfg_attr(test, automock)]
 #[async_trait]
-pub trait UrlRepositoryTrait:Send + Sync{
+pub trait UrlRepositoryTrait: Send + Sync {
     async fn get_all_url(&self) -> Result<Vec<Url>, sqlx::Error>;
+       async fn add_url(&self, url: String, aliase: String) -> Result<(), sqlx::Error> ;
 }
 
 #[derive(Clone)]
@@ -24,7 +25,7 @@ impl UrlRepository {
 
 #[async_trait]
 impl UrlRepositoryTrait for UrlRepository {
-   async fn get_all_url(&self) -> Result<Vec<Url>, sqlx::Error>{
+    async fn get_all_url(&self) -> Result<Vec<Url>, sqlx::Error> {
         let (sql, _) = Query::select()
             .columns(["id", "alias", "url"])
             .from("url")
@@ -37,5 +38,21 @@ impl UrlRepositoryTrait for UrlRepository {
                 err
             })?;
         Ok(urls)
+    }
+    async fn add_url(&self, url: String, aliase: String) -> Result<(), sqlx::Error> {
+        let (sql, values) = Query::insert()
+        .into_table(Alias::new("url"))
+        .columns([Alias::new("url"), Alias::new("alias")])
+        .values_panic([url.clone().into(), aliase.clone().into()])
+        .build(PostgresQueryBuilder);
+
+        println!("sql string value {:?}",values);
+    sqlx::query(&sql)
+        .bind(&url)
+        .bind(&aliase)
+        .execute(&self.primary_db)
+        .await?;
+
+    Ok(())
     }
 }

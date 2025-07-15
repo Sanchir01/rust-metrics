@@ -4,7 +4,7 @@ use axum::response::Response;
 use serde_json;
 
 use crate::{domain::url::Url, feature::url::service::{UrlService, UrlServiceTrait}};
-
+use crate::feature::url::entity::CreateUrlDTO;
 
 pub struct UrlHandler {
     url_service: Arc<UrlService>,
@@ -37,4 +37,11 @@ pub async fn get_all_url_handler_axum(
                 .unwrap()
         }
     }
+}
+
+pub async fn create_url_handler(
+    State(handlers): State<Arc<UrlHandler>>,
+    Json(payload):Json<CreateUrlDTO>
+) -> impl IntoResponse{
+    (StatusCode::CREATED, Json("Saved"))
 }
