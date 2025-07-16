@@ -32,8 +32,7 @@ impl UrlServiceTrait for UrlService {
             Ok(a) => a,
             Err(_) => return Err(sqlx::Error::Protocol("random string error".into())),
         };
-        let _ = self.url_repository.add_url(url, alias).await;
-        Ok(())
+        self.url_repository.add_url(url, alias).await
     }
 }
 

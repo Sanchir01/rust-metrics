@@ -52,8 +52,6 @@ pub async fn create_url_handler(
             Json(format!("Validation error: {:?}", validation_errors)),
         );
     }
-
-   println!("url : {:?}",payload.url);
   
     match handlers.url_service.create_url(payload.url).await {
          Ok(_) => (  StatusCode::CREATED,
@@ -64,5 +62,4 @@ pub async fn create_url_handler(
             Json("Error while saving".to_string())
         )
     }
-  
 }
