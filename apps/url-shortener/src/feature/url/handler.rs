@@ -2,6 +2,7 @@ use std::sync::Arc;
 use axum::{extract::State, http::StatusCode, response::IntoResponse, Json};
 use axum::response::Response;
 use serde_json;
+use validator::Validate;
 
 use crate::{domain::url::Url, feature::url::service::{UrlService, UrlServiceTrait}};
 use crate::feature::url::entity::CreateUrlDTO;
@@ -39,9 +40,29 @@ pub async fn get_all_url_handler_axum(
     }
 }
 
+
+
 pub async fn create_url_handler(
     State(handlers): State<Arc<UrlHandler>>,
     Json(payload):Json<CreateUrlDTO>
 ) -> impl IntoResponse{
-    (StatusCode::CREATED, Json("Saved"))
+     if let Err(validation_errors) = payload.validate() {
+        return (
+            StatusCode::UNPROCESSABLE_ENTITY,
+            Json(format!("Validation error: {:?}", validation_errors)),
+        );
+    }
+
+   println!("url : {:?}",payload.url);
+  
+    match handlers.url_service.create_url(payload.url).await {
+         Ok(_) => (  StatusCode::CREATED,
+            Json("Saved".to_string())
+        ),
+        Err(_) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json("Error while saving".to_string())
+        )
+    }
+  
 }

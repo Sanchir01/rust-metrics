@@ -25,5 +25,6 @@ sea-query.workspace = true
 anyhow.workspace = true
 serde_json.workspace = true
 validator.workspace = true
+rand.workspace = true
 [target.'cfg(not(target_os = "windows"))'.dependencies]
 jemallocator.workspace = true

@@ -1,4 +1,4 @@
-FROM rust:1.87-slim as builder
+FROM rust:1.88-slim AS builder
 WORKDIR /app
 
 RUN apt-get update && \
@@ -14,9 +14,10 @@ RUN apt-get update && \
 
 COPY Cargo.toml Cargo.lock .env ./
 
+RUN cargo build --release
+
 COPY . .
 
-RUN cargo build --release
 
 EXPOSE 50051
 
